@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TailFade · Tail the sharps. Fade the noise.</title>
+<meta name="description" content="Follow the bettors you trust on X, Action Network or anywhere else. TailFade pulls their picks onto one board, shows where they agree, and tells you who's worth fading.">
+<meta property="og:title" content="TailFade · Tail the sharps. Fade the noise.">
+<meta property="og:description" content="Every sharp you follow, on one board. Consensus, splits, outliers and who to fade.">
+<meta property="og:image" content="https://jeffmuller8.github.io/tailfade-site/assets/hero-bw-sm.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M9 21l7-10 7 10' stroke='%2307C5D6' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=JetBrains+Mono:wght@500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* TailFade landing, hosted on GitHub Pages. Sign-in happens on the app at APP_URL. */
+:root { --tq: #07C5D6; --pu: #5C004B;
+  --f-display: "Archivo", "Helvetica Neue", system-ui, sans-serif;
+  --f-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; }
+img { max-width: 100%; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--tq); outline-offset: 3px; }
+.wm { font-family: var(--f-display); font-weight: 800; font-stretch: 118%; font-size: 22px; letter-spacing: -.01em; text-transform: uppercase; line-height: 1; display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; }
+.wm .t { color: inherit; } .wm .sl { color: var(--tq); font-weight: 700; margin: 0 2px; transform: skewX(-12deg); display: inline-block; }
+.wm .f { background: var(--pu); color: #FFFFFF; padding: .12em .22em .1em; border-radius: 4px; box-shadow: inset 0 -2px 0 var(--tq); }
+/* Landing: black, white, turquoise and purple, over a black-and-white street-ball photo. Single look, both themes. */
+.landing { background: #000000; color: #FFFFFF; min-height: 100dvh; font-family: var(--f-body); }
+.landing a:not([class]) { color: inherit; }
+.l-in { max-width: 1180px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.l-nav { position: absolute; inset: 0 0 auto 0; z-index: 2; padding-top: env(safe-area-inset-top, 0px); }
+.l-nav .l-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 18px; }
+.l-nav .wm { font-size: 24px; }
+.l-signin { font: 700 14px var(--f-body); color: #000000; background: #FFFFFF; border-radius: 999px; padding: 9px 18px; text-decoration: none; white-space: nowrap; }
+.l-signin:hover { background: var(--tq); }
+.hero { position: relative; min-height: min(100svh, 920px); display: grid; align-items: end; overflow: hidden; isolation: isolate; }
+.hero picture, .hero img.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+.hero img.hero-img { object-fit: cover; object-position: 62% 30%; filter: grayscale(1) contrast(1.08); }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 38%, rgba(0,0,0,.15) 70%, rgba(0,0,0,.35) 100%), linear-gradient(0deg, #000 0%, rgba(0,0,0,0) 40%); }
+.hero .l-in { width: 100%; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); gap: 40px; align-items: end; padding-block: 140px 64px; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font: 700 12px var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--tq); }
+.kicker::before { content: ""; width: 26px; height: 2px; background: var(--tq); }
+.hero h1 { font: 800 clamp(44px, 7.4vw, 96px)/.92 var(--f-display); font-stretch: 112%; letter-spacing: -.02em; text-transform: uppercase; margin: 14px 0 18px; text-wrap: balance; }
+.hero h1 .hl { color: var(--tq); } .hero h1 .fd { background: var(--pu); padding: 0 .12em; box-shadow: inset 0 -.08em 0 var(--tq); }
+.hero p.lede { font-size: clamp(16px, 1.6vw, 19px); line-height: 1.55; color: #D6D6D6; max-width: 34ch; margin: 0; }
+.login { background: #FFFFFF; color: #000000; border-radius: 18px; padding: 26px; display: grid; gap: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.45); border-top: 6px solid var(--tq); max-width: 420px; justify-self: end; width: 100%; }
+.login h2 { font: 800 24px/1.1 var(--f-display); font-stretch: 108%; text-transform: uppercase; margin: 0; }
+.login p { margin: 0; color: #4A4A4A; font-size: 14px; }
+.login .fine { font-size: 12px; color: #6B6B6B; }
+.gbtn { display: flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 12px; border: 1px solid #D0D0D0; background: #FFFFFF; color: #1F1F1F; font: 700 15px var(--f-body); text-decoration: none; cursor: pointer; }
+.gbtn:hover { border-color: #000000; }
+.devbtn { text-align: center; font-size: 13px; color: #6B6B6B; }
+.devbtn a { color: var(--pu); font-weight: 700; }
+.login .status.err { color: #B3261E; }
+.l-band { background: #FFFFFF; color: #000000; }
+.l-band .l-in { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.l-band .cell { padding: 34px 28px 36px; border-left: 1px solid #E3E3E3; display: grid; gap: 8px; align-content: start; }
+.l-band .cell:first-child { border-left: 0; padding-left: 0; }
+.l-band h3 { font: 800 20px/1.15 var(--f-display); font-stretch: 105%; margin: 0; text-transform: uppercase; }
+.l-band p { margin: 0; color: #4A4A4A; line-height: 1.55; font-size: 15px; }
+.l-band .src { font: 700 11px var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--pu); }
+.l-how { padding-block: 72px; }
+.l-how .l-in { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+.l-how h2 { font: 800 clamp(30px, 4vw, 48px)/1 var(--f-display); font-stretch: 110%; text-transform: uppercase; margin: 10px 0 22px; text-wrap: balance; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; counter-reset: st; }
+.steps li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; counter-increment: st; }
+.steps li::before { content: counter(st, decimal-leading-zero); font: 800 18px var(--f-mono); color: #000000; background: var(--tq); border-radius: 10px; height: 44px; display: grid; place-items: center; }
+.steps b { display: block; font-size: 16px; margin-bottom: 2px; } .steps span { color: #BDBDBD; line-height: 1.5; font-size: 15px; }
+.demo { background: #FFFFFF; color: #000000; border-radius: 18px; padding: 18px; box-shadow: 0 30px 80px rgba(7,197,214,.18); display: grid; gap: 12px; }
+.demo .tag { font: 700 11px var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: #6B6B6B; }
+.demo h4 { font: 800 19px/1.15 var(--f-display); margin: 0; }
+.demo .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.demo .db { border-radius: 10px; background: #F4F4F4; padding: 10px 12px; border-left: 3px solid #000; display: grid; gap: 2px; min-width: 0; }
+.demo .db.t { border-left-color: var(--tq); } .demo .db.f { border-left-color: var(--pu); }
+.demo .db b { font: 800 16px var(--f-display); } .demo .db small { font: 600 12px var(--f-mono); color: #6B6B6B; }
+.demo .chip { font: 700 10px var(--f-body); letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; justify-self: start; }
+.demo .chip.t { background: #DDF7FA; color: #047C87; } .demo .chip.f { background: #F2DDEC; color: var(--pu); }
+.demo .bar2 { display: flex; height: 26px; border-radius: 6px; overflow: hidden; gap: 2px; font: 700 12px var(--f-body); }
+.demo .bar2 span { display: flex; align-items: center; padding: 0 8px; }
+.demo .bar2 .a { background: #000; color: #fff; flex: 75; } .demo .bar2 .b { background: #EDEDED; flex: 25; justify-content: flex-end; }
+.l-cta { background: var(--pu); }
+.l-cta .l-in { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; justify-content: space-between; padding-block: 44px; }
+.l-cta h2 { font: 800 clamp(26px, 3.6vw, 40px)/1.05 var(--f-display); font-stretch: 110%; text-transform: uppercase; margin: 0; text-wrap: balance; }
+.l-cta a.go { font: 800 15px var(--f-body); background: var(--tq); color: #000; padding: 14px 24px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.l-cta a.go:hover { background: #FFFFFF; }
+.l-foot .l-in { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; padding-block: 22px calc(22px + env(safe-area-inset-bottom, 0px)); font-size: 12px; color: #8A8A8A; }
+.l-foot a { color: #BDBDBD; }
+@media (max-width: 900px) {
+  .hero .l-in { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 120px 40px; }
+  .login { justify-self: stretch; max-width: none; }
+  .hero::before { background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 30%, rgba(0,0,0,.85) 62%, #000 100%); }
+  .hero img.hero-img { object-position: 55% 20%; }
+  .l-how .l-in { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .l-band .l-in { grid-template-columns: minmax(0, 1fr); }
+  .l-band .cell, .l-band .cell:first-child { border-left: 0; border-top: 1px solid #E3E3E3; padding: 24px 0; }
+  .l-band .cell:first-child { border-top: 0; }
+}
+@media (max-width: 420px) { .demo .row2 { grid-template-columns: minmax(0, 1fr); } .l-nav .wm { font-size: 20px; } }
+</style>
+</head>
+<body>
+<div class="landing">
+  <header class="l-nav"><div class="l-in"><span class="wm" aria-label="TailFade"><span class="t">Tail</span><span class="sl">/</span><span class="f">Fade</span></span><a class="l-signin" data-app="/auth/google" href="#">Sign in</a></div></header>
+  <section class="hero">
+    <picture><source media="(max-width: 900px)" srcset="assets/hero-bw-sm.jpg"><img class="hero-img" src="assets/hero-bw.jpg" alt="A player rising for a one-handed dunk on an outdoor court, shot from below against the sun" fetchpriority="high"></picture>
+    <div class="l-in">
+      <div>
+        <span class="kicker">Sharp pick tracker</span>
+        <h1>Tail the <span class="hl">sharps.</span><br><span class="fd">Fade</span> the noise.</h1>
+        <p class="lede">Follow the bettors you trust on X, Action Network or anywhere else. TailFade pulls their picks onto one board, shows where they agree, and tells you who's worth fading.</p>
+      </div>
+      <div class="login" id="login">
+        <h2>Sign in</h2>
+        <p>Your sharps, your board, your record. Saved to your account and ready on any device.</p>
+        <a class="gbtn" data-app="/auth/google" href="#"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.8c4.3-4 6.9-9.9 6.9-17.2z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.8c-2.1 1.4-4.8 2.3-8.5 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg><span>Continue with Google</span></a>
+        <p class="fine">Already signed in? <a data-app="/" href="#" style="color:var(--pu);font-weight:700">Open the app</a></p>
+        <p class="fine">For tracking picks only. TailFade doesn't place bets. 21+. If gambling stops being fun, call 1-800-GAMBLER.</p>
+      </div>
+    </div>
+  </section>
+  <section class="l-band"><div class="l-in">
+    <div class="cell"><span class="src">X · Twitter</span><h3>Every tweet, read for bets</h3><p>Add a handle and refresh. Claude reads each post, bet-slip screenshots included, and pulls out the actual wagers.</p></div>
+    <div class="cell"><span class="src">Action Network</span><h3>Verified picks, exact lines</h3><p>Paste an expert's profile link to load their open picks with the real line, odds and units.</p></div>
+    <div class="cell"><span class="src">Custom</span><h3>Discords, group chats, anyone</h3><p>Name a source and paste their picks. Every game is checked against the real schedule before it counts.</p></div>
+  </div></section>
+  <section class="l-how"><div class="l-in">
+    <div>
+      <span class="kicker">How it works</span>
+      <h2>One board. Every sharp. Your call.</h2>
+      <ol class="steps">
+        <li><div><b>Add the sharps you follow</b><span>X handles, Action Network experts, or your own custom sources.</span></div></li>
+        <li><div><b>Load their picks</b><span>Each bet is matched to the real game, with start time and home and away.</span></div></li>
+        <li><div><b>Tail or fade</b><span>Mark each sharp. The board shows consensus, splits, outliers and the side to take.</span></div></li>
+      </ol>
+    </div>
+    <div class="demo" aria-label="Example board card">
+      <span class="tag">Example</span>
+      <h4>Kansas City Chiefs @ Denver Broncos</h4>
+      <div class="bar2"><span class="a">Under 75%</span><span class="b">25%</span></div>
+      <div class="row2">
+        <div class="db t"><b>Under 41.5</b><small>-115 · 1.15u</small><span class="chip t">Tail</span></div>
+        <div class="db f"><b>Over 41.5</b><small>-108 · 1u</small><span class="chip f">Fade → Under</span></div>
+      </div>
+    </div>
+  </div></section>
+  <section class="l-cta"><div class="l-in"><h2>Stop scrolling five feeds before kickoff.</h2><a class="go" data-app="/auth/google" href="#">Get started free</a></div></section>
+  <footer class="l-foot"><div class="l-in"><span>© 2026 TailFade</span><span>Photo: Gustavo Serrate on <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a></span></div></footer>
+</div>
+<script>
+  // The TailFade app on Railway. Every sign-in link goes there; Google sign-in runs on the app itself.
+  const APP_URL = "https://tailfade-production.up.railway.app";
+  for (const a of document.querySelectorAll("a[data-app]")) a.href = APP_URL + a.dataset.app;
+</script>
+</body>
+</html>
